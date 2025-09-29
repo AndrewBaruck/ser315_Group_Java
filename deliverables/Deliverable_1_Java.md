@@ -1,4 +1,4 @@
-# Deliverable 1 [GROUP NAME]
+# Deliverable 1 [Java]
 
 ### Authors
 
