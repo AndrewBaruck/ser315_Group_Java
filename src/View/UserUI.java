@@ -1,15 +1,10 @@
 package View;
 
-public class UserUI {
-    private String message;
+interface UserUI {
 
-    public String getMessage() {
-        return message;
-    }
-    public void setMessage(String message) {
-        this.message = message;
-    }
-    public void displayMessage(){
-        System.out.println(message);
-    }
-}
+    public String getMessage();
+
+    public void setMessage(String message);
+
+    public void displayMessage();
+ }
