@@ -15,7 +15,9 @@ public class RacerUI implements UserUI {
     }
 
 
-    public int displayLogin() {
+
+
+    public int displayWelcomePage() {
        //Login header
         System.out.println(
                 "=============================\n"
