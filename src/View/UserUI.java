@@ -2,9 +2,16 @@ package View;
 
 interface UserUI {
 
-    public String getMessage();
 
-    public void setMessage(String message);
+    public int displayWelcomePage();
 
-    public void displayMessage();
+    public String[] displayLogin();
+
+    public void displayUsernameNotFound();
+
+    public void displayInvalidLoginCombination();
+
+    public void displaySuccessLogin();
  }
+
+
