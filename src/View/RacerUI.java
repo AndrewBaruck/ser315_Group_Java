@@ -141,6 +141,34 @@ public class RacerUI implements UserUI {
         System.out.println("Processing race registration...");
     }
 
+    /**
+     * Strategy method for a logged-in Racer.
+     * This is what SystemController will call for Racer users.
+     */
+    @Override
+    public void showRoleMenu(User user) {
+        Racer racer = (Racer) user;
+
+        boolean running = true;
+        while (running) {
+            int choice = displayUserDashboard();
+
+            switch (choice) {
+                case 1:
+                    // Register for a race
+                    System.out.println("TODO: hook up race registration here.");
+                    break;
+                case 2:
+                    // Manage current registered race
+                    System.out.println("TODO: hook up manage registered race here.");
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+            running = false;
+        }
+    }
+
     ////////// End of registration ///////////////////////////////////////////////////////////////////////////////////
 
 
