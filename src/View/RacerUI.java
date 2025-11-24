@@ -1,12 +1,14 @@
 package View;
 
 import Model.Race;
+import Model.Racer;
+import Model.User;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class RacerUI implements UserUI {
+public class RacerUI implements RoleUI {
 
     //Global user input
     Scanner input = new Scanner(System.in);
@@ -20,7 +22,6 @@ public class RacerUI implements UserUI {
      *      1 - Login to an account
      *      2 - Signup for an account
      */
-    @Override
     public int displayWelcomePage() {
         //Login header
         System.out.println(
@@ -45,7 +46,6 @@ public class RacerUI implements UserUI {
      *      Index 1 - Password input
      *
      */
-    @Override
     public String[] displayLogin(){
 
         String[] credentials= new String[2];
@@ -65,7 +65,6 @@ public class RacerUI implements UserUI {
     /**
      * Displays error message indicating that the username was not found.
      */
-    @Override
     public void displayUsernameNotFound(){
         System.out.println("Username not found");
     }
@@ -73,7 +72,6 @@ public class RacerUI implements UserUI {
     /**
      * Displays error message indicating that the username or password combination is not correct.
      */
-    @Override
     public void displayInvalidLoginCombination(){
         System.out.println("Error: Username or password combination is incorrect.");
     }
@@ -81,7 +79,6 @@ public class RacerUI implements UserUI {
     /**
      * Displays a success message that the login was successful
      */
-    @Override
     public void displaySuccessLogin(){
         System.out.println("You Successfully logged in");
     }
@@ -139,6 +136,34 @@ public class RacerUI implements UserUI {
     public void displaySucessfulRegistration(){
         System.out.println("You successfully registered for a license!");
         System.out.println("Processing race registration...");
+    }
+
+    /**
+     * Strategy method for a logged-in Racer.
+     * This is what SystemController will call for Racer users.
+     */
+    @Override
+    public void showRoleMenu(User user) {
+        Racer racer = (Racer) user;
+
+        boolean running = true;
+        while (running) {
+            int choice = displayUserDashboard();
+
+            switch (choice) {
+                case 1:
+                    // Register for a race
+                    System.out.println("TODO: hook up race registration here.");
+                    break;
+                case 2:
+                    // Manage current registered race
+                    System.out.println("TODO: hook up manage registered race here.");
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+            running = false;
+        }
     }
 
     ////////// End of registration ///////////////////////////////////////////////////////////////////////////////////

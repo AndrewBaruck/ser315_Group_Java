@@ -18,4 +18,8 @@ public class License {
     public boolean isValid(){
         return false;
     }
+
+    public Object getLicenseID() {
+        return null;
+    }
 }

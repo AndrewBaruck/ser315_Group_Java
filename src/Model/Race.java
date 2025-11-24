@@ -60,9 +60,11 @@ public class Race {
         }
         public Builder name(String name) {
             this.name = name;
+            return null;
         }
         public Builder id(int id) {
             this.id = id;
+            return null;
         }
     }
 
