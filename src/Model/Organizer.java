@@ -15,8 +15,8 @@ public class Organizer implements User{
     public void updateRace(){
 
     }
-    public void enterResults(Racer first, Racer second,  Racer third){
-
+    public void enterResults(Race race, Racer first, Racer second,  Racer third){
+        Review review = new Review( race,  first,  second,   third);
     }
 
     public String getPassword(){
