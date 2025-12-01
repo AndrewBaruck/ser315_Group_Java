@@ -2,15 +2,17 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Racer implements User{
 
-    private String username;
-    private String password;
-    private String fullName;
+    Scanner sc =  new Scanner(System.in);
 
+    private String username = "Racer";
+    private String password = "Racer";
+    private String fullName = "Racer";
     private int numPodiums;
-    private int category;
+    private int category = 5;
     private License license;
     private CreditCard creditCard;
     private ArrayList<Race> participatedRaces;
@@ -21,32 +23,79 @@ public class Racer implements User{
 //        this.username = username;
 //    }
 
-    public String reviewRaces(int rating, String feeback){
-        return "racer";
+    public void setCategory(int category){
+        this.category = category;
     }
+    public String getName(){ return  this.fullName;}
+    public CreditCard getCreditCard(){ return this.creditCard; }
+
+    public String reviewRaces(int rating, String feedback){
+        String review = "Rating: " + rating + "\nFeedback: " + feedback;
+        for (int i = 0; i < this.participatedRaces.size(); i++){
+            review += "Race: " + participatedRaces.get(i).getName();
+            review += "\nRace ID: " + participatedRaces.get(i).getId();
+        }
+        return review;
+    }
+
     public License getLicense(String name, CreditCard creditCard){
-        return license;
-    }
-    public void registerRace(String name, CreditCard creditCard, License license){
-
-    }
-    public int levelUp(int podiums, int category){
-        return -1;
+        return this.license;
     }
 
+    public void registerRace(Race race, String name, CreditCard creditCard, License license){
+        if (!license.isValid()){
+            System.out.println("Invalid license");
+            return;
+        } 
+        if (race.getReqCat() < this.category){
+            System.out.println("Invalid category");
+            return;
+        } if (race.getParticipationLimit() <= race.getCurrParticipants()){
+            System.out.println("No open spots");
+            return;
+        } else {
+            participatedRaces.add(race);
+        }
+    }
+    public int levelUp(){
+        if (this.numPodiums >= 3){
+            if (this.category > 1){
+                this.category--;
+            }
+        }
+        return this.category;
+    }
+    public void updateLicense(License license){
+        this.license = license;
+    }
     public String getPassword(){
-        return "racer";
+        return this.password;
     }
     public String getUsername(){
-        return "racer";
+        return this.username;
     }
+    public int getCategory(){ return this.category; }
+    
     public boolean logIn(){
+        String username = sc.nextLine();
+        String password = sc.nextLine();
+
+        if (this.username.equals(username) && this.password.equals(password)){
+            return true;
+        }
         return false;
     }
     public boolean logOut(){
         return false;
     }
     public boolean signUp(){
-        return false;
+        System.out.println("Please enter your username: ");
+        this.username = sc.nextLine();
+        System.out.println("Please enter your password: ");
+        this.password = sc.nextLine();
+        System.out.println("Please enter your full name: ");
+        this.fullName = sc.nextLine();
+        
+        return true;
     }
 }
