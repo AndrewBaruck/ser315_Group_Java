@@ -8,18 +8,34 @@ public class License {
     private int category;
     private LocalDate creationDate;
     private LocalDate expirationDate;
+    private CreditCard creditCard;
+    private String racerName;
 
     public void createLicence(String name, CreditCard card){
+        this.racerName = name;
+        this.creditCard = card;
+        this.creationDate = LocalDate.now();
+        this.expirationDate = creationDate.plusYears(1);
+        this.category = 1;
+        this.ID = 123456789;
 
     }
     public void deleteLicense(){
-
+        this.racerName = null;
+        this.creditCard = null;
+        this.creationDate = null;
+        this.expirationDate = null;
+        this.category = 0;
+        this.ID = 0;
     }
     public boolean isValid(){
-        return false;
+        if (this.ID == 0 || LocalDate.now().isAfter(this.expirationDate)) {
+            return false;
+        }
+        return true;
     }
 
     public Object getLicenseID() {
-        return null;
+        return this.ID;
     }
 }
