@@ -14,6 +14,7 @@ public class Race {
     private String route;
     private String name;
     private int id;
+    private int currParticipants;
 
     public static class Builder{
         private final double distance;
@@ -97,5 +98,7 @@ public class Race {
     public String getRoute() { return this.route; }
     public String getName() { return this.name; }
     public int getId() { return this.id; }
+    public int  getCurrParticipants(){ return this.currParticipants; }
 
 }
+
