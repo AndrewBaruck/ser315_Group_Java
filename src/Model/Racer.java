@@ -38,7 +38,7 @@ public class Racer implements User{
         return review;
     }
 
-    public License getLicense(String name, CreditCard creditCard){
+    public License getLicense(){
         return this.license;
     }
 
@@ -99,3 +99,4 @@ public class Racer implements User{
         return true;
     }
 }
+
