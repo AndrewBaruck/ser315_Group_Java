@@ -24,7 +24,7 @@ public class RacerController {
     public void purchaseLicence(String n, CreditCard cc, String uname){
         for(Racer r:racers){
             if(r.getUsername().equals(uname)){
-                License license = r.getLicense(n,cc);
+                License license = r.getLicense();
                 licenses.add(license);
                 break;
             }
@@ -73,3 +73,4 @@ public class RacerController {
         return racers;
     }
 }
+
