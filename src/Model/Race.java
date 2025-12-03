@@ -12,8 +12,8 @@ public class Race {
     private boolean official;
     private int reqCat;
     private String route;
+    private int ID;
     private String name;
-    private int id;
     private int currParticipants;
 
     public static class Builder{
@@ -25,8 +25,8 @@ public class Race {
         private boolean official;
         private int reqCat;
         private String route;
+        private int ID;
         private String name;
-        private int id;
 
         public Builder(double distance) {
             this.distance = distance;
@@ -59,14 +59,15 @@ public class Race {
             this.route = route;
             return this;
         }
+        public Builder ID(int ID) {
+            this.ID = ID;
+            return this;
+        }
         public Builder name(String name) {
             this.name = name;
-            return null;
+            return this;
         }
-        public Builder id(int id) {
-            this.id = id;
-            return null;
-        }
+
     }
 
     private Race(Builder builder){
@@ -78,8 +79,8 @@ public class Race {
         this.official = builder.official;
         this.reqCat = builder.reqCat;
         this.route = builder.route;
+        this.ID = builder.ID;
         this.name = builder.name;
-        this.id = builder.id;
     }
 
     public double getDistance(){
@@ -96,9 +97,9 @@ public class Race {
     public boolean isOfficial(){ return this.official; }
     public int getReqCat(){ return this.reqCat; }
     public String getRoute() { return this.route; }
-    public String getName() { return this.name; }
-    public int getId() { return this.id; }
+    public int getId(){ return this.ID; }
+    public String getName(){ return this.name; }
     public int  getCurrParticipants(){ return this.currParticipants; }
+    public void  addCurrParticipants(){ currParticipants++; }
 
 }
-
