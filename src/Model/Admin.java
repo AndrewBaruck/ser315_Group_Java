@@ -17,7 +17,7 @@ public class Admin implements User{
         }
     }
     public void manageLicense(Racer r){
-        License rLicense = r.getLicense(r.getName(), r.getCreditCard());
+        License rLicense = r.getLicense();
         if(rLicense == null){
             System.out.println("No license found, create License? (Y/N)");
             String choice = sc.nextLine();

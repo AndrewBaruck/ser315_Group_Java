@@ -40,7 +40,7 @@ public class AdminController {
     }
     public void removeLicense(License license) throws NonExistentLicenseException {
         try{for(License l: licenses){
-            if(l.getLicenseID()==(license.getLicenseID())){
+            if(l.equals(license)){
                 licenses.remove(l);
                 break;
             }

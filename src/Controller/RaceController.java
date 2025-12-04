@@ -6,8 +6,8 @@ import Model.Race;
 import java.util.ArrayList;
 
 public class RaceController {
-    private ArrayList<Race> races;
-    private ArrayList<Organizer> organizers;
+    private ArrayList<Race> races = new ArrayList<>();
+    private ArrayList<Organizer> organizers = new ArrayList<>();
 
     public void createRaces(Race race){
         for(Race r:races){

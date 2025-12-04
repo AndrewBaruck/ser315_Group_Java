@@ -67,6 +67,9 @@ public class Race {
             this.name = name;
             return this;
         }
+        public Race build() {
+            return new Race(this);
+        }
 
     }
 

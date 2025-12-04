@@ -9,8 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class RacerController {
-    private ArrayList<Racer> racers;
-    private ArrayList<License> licenses;
+    private ArrayList<Racer> racers = new ArrayList<>();
+    private ArrayList<License> licenses = new ArrayList<>();
 
     public void registerRacer(Racer racer){
         for(Racer r:racers){
