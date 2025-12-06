@@ -7,6 +7,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import Controller.SystemController;
 
 public class RacerUI implements RoleUI {
 
@@ -21,7 +22,7 @@ public class RacerUI implements RoleUI {
      * This is what SystemController will call for Racer users.
      */
     @Override
-    public void showRoleMenu(User user) {
+    public void showRoleMenu(User user, SystemController controller) {
         Racer racer = (Racer) user;
 
         while (true) {
@@ -32,21 +33,17 @@ public class RacerUI implements RoleUI {
 
             int choice = readMenuChoice(1, 3);
 
-            switch (choice) {
-                case 1:
-                    handleRaceRegistrationFlow(racer);
-                    break;
-
-                case 2:
-                    handleManageRaces(racer);
-                    break;
-
-                case 3:
-                    System.out.println("Logging out...");
-                    return;
+            if (choice == 1) {
+                handleRaceRegistrationFlow(racer, controller);
+            } else if (choice == 2) {
+                handleManageRaces(racer);
+            } else if (choice == 3) {
+                System.out.println("Logging out...");
+                return;
             }
         }
     }
+
 
     /**
      * Displays welcome race portal banner. Also prompts user if they want to login to their account or sign up for an account.
@@ -320,12 +317,22 @@ public class RacerUI implements RoleUI {
         }
     }
 
-    private void handleRaceRegistrationFlow(Racer racer) {
+    private void handleRaceRegistrationFlow(Racer racer, SystemController controller) {
 
         // 1. Ask controller for all races
-        List<Race> races = racer.getAvailableRaces();
+        List<Race> races = controller.getRaceController().getRaces();
+
+        if (races == null || races.isEmpty()) {
+            System.out.println("No races available at the moment.");
+            return;
+        }
 
         int raceId = displayRacesAndGetSelection(races);
+        if (raceId < 1 || raceId > races.size()) {
+            System.out.println("Error: Invalid race ID selected.");
+            return;
+        }
+
         Race selected = races.get(raceId - 1);
 
         // 2. Check license
@@ -343,7 +350,9 @@ public class RacerUI implements RoleUI {
         }
 
         // 3. Check category level
-        if (selected.getReqCat() < racer.getCategory()) {
+        // Assumption: category 5 is beginner, 1 is strongest.
+        // If racer's category number is greater than required, they are under-qualified.
+        if (racer.getCategory() > selected.getReqCat()) {
             displayInvalidCatLevel();
             return;
         }
@@ -356,6 +365,9 @@ public class RacerUI implements RoleUI {
 
         // 5. Register racer
         selected.addParticipant(racer);
+        selected.addCurrParticipants();   // uses the currParticipants field your teammate added
+        racer.addRace(selected);          // make sure Racer has this method
+
         displaySuccessfulRaceRegistration();
     }
 
@@ -373,7 +385,6 @@ public class RacerUI implements RoleUI {
             System.out.println("- " + r.getType() + " on " + r.getRaceDate());
         }
 
-        System.out.println("Feature not fully implemented in this deliverable.");
     }
 
     private int readMenuChoice(int min, int max) {

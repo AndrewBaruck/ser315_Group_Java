@@ -55,9 +55,7 @@ public class SystemController {
                 System.out.println("Sign up not yet implemented.");
             }
         }
-        // Now show the proper UI for the logged-in user
         showRoleUI(loggedInUser);
-        // Only return here if the selected UI finishes (user logs out)
     }
 
 
@@ -74,13 +72,9 @@ public class SystemController {
         } else {
             ui = new RacerUI();
         }
-        ui.showRoleMenu(user); // Does not return until user logs out
+        ui.showRoleMenu(user, this);
     }
 
-
-    public int shutDown(){
-        return -1;
-    }
 
     public User login(String username, String password) {
         for (User u : users) {

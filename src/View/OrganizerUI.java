@@ -1,6 +1,7 @@
 package View;
 
 import Model.Organizer;
+import Controller.SystemController;
 import Model.User;
 
 import java.util.Scanner;
@@ -10,27 +11,33 @@ import java.util.Scanner;
  */
 public class OrganizerUI implements RoleUI {
 
+    private final Scanner input = new Scanner(System.in);
+
     @Override
-    public void showRoleMenu(User user) {
-        Scanner sc = new Scanner(System.in);
+    public void showRoleMenu(User user, SystemController controller) {
         Organizer organizer = (Organizer) user;
 
         while (true) {
             System.out.println("===== Organizer Menu =====");
             System.out.println("1) Create Race");
-            System.out.println("2) Enter Results");
+            System.out.println("2) View Races");
             System.out.println("3) Logout");
 
-            int choice = sc.nextInt();
-            sc.nextLine();
+            int choice = input.nextInt();
+            input.nextLine();
 
-            if (choice == 3) {
+            if (choice == 1) {
+                System.out.println("Create race (not fully implemented yet).");
+            } else if (choice == 2) {
+                System.out.println("View races (not fully implemented yet).");
+            } else if (choice == 3) {
                 System.out.println("Logging out...");
-                return; // goes back to start() after login section
+                return;
+            } else {
+                System.out.println("Invalid choice. Try again.");
             }
         }
     }
-
 
     public void createRace() {
         // TODO

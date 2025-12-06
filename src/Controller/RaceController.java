@@ -1,46 +1,30 @@
 package Controller;
 
-import Model.Organizer;
 import Model.Race;
+import Model.Organizer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RaceController {
+
     private ArrayList<Race> races = new ArrayList<>();
     private ArrayList<Organizer> organizers = new ArrayList<>();
 
-    public void createRaces(Race race){
-        for(Race r:races){
-            if(r.getId()==race.getId()){
-                break;
-            }
-        }
-        races.add(race);
+    public RaceController() {
+        races.addAll(Race.getDummyRaces());
     }
-    public void enterResults(int raceId){
-        for(Race r:races){
-            if(r.getId()==raceId){
-                //race set results logic, race class not complete
 
-            }
-        }
-    }
-    public  ArrayList<Race> getRaces(){
+    public ArrayList<Race> getRaces() {
         return races;
     }
-    public ArrayList<Race> racesByType(String type){
-        ArrayList<Race> sortedRaces = new ArrayList<>();
-        for(Race r:races){
-            if(r.getType().equals(type)){
-                sortedRaces.add(r);
+
+    public Race getRaceById(int id) {
+        for (Race r : races) {
+            if (r.getId() == id) {
+                return r;
             }
         }
-        return sortedRaces;
-    }
-    public void getResults(Race race){
-        //race set results logic, race class not complete
+        return null;
     }
 }
-
-
-//making sure that my version control is up to date.

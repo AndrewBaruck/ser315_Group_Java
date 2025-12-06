@@ -1,5 +1,6 @@
 package View;
 
+import Controller.SystemController;
 import Model.User;
 
 /**
@@ -12,8 +13,6 @@ public interface RoleUI {
     /**
      * Entry point for the UI of a logged-in user.
      * Implementations can loop on menus, read input, and call controllers.
-     *
-     * @param user the logged-in user for this session
      */
-    void showRoleMenu(User user);
+    void showRoleMenu(User user, SystemController controller);
 }

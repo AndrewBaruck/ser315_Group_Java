@@ -1,76 +1,56 @@
 package Controller;
 
-import Model.CreditCard;
-import Model.License;
 import Model.Race;
 import Model.Racer;
+import Model.License;
+import Model.CreditCard;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RacerController {
+
     private ArrayList<Racer> racers = new ArrayList<>();
     private ArrayList<License> licenses = new ArrayList<>();
 
-    public void registerRacer(Racer racer){
-        for(Racer r:racers){
-            if(r.getUsername()
-            .equals(racer.getUsername())){
-                break;
+    public void registerRacer(Racer racer) {
+        for (Racer r : racers) {
+            if (r.getUsername().equals(racer.getUsername())) {
+                return; // Racer already exists
             }
         }
         racers.add(racer);
     }
-    public void purchaseLicence(String n, CreditCard cc, String uname){
-        for(Racer r:racers){
-            if(r.getUsername().equals(uname)){
-                License license = r.getLicense();
-                licenses.add(license);
-                break;
+
+    public Racer getRacerByUsername(String username) {
+        for (Racer r : racers) {
+            if (r.getUsername().equals(username)) {
+                return r;
             }
         }
-    }
-    public void raceSignUp(int RaceId, String uname){
-        int participationLimit;
-        LocalDate date;
-        int cat;
-        Racer thisRacer = null;
-        for(Racer r:racers){
-            if(r.getUsername().equals(uname)){
-                thisRacer = r;
-                RaceController raceController = new RaceController();
-                ArrayList<Race> races = raceController.getRaces();
-                for(Race race:races){
-                    if(race.getId()==RaceId){
-                        participationLimit = race.getParticipationLimit();
-                        date = race.getRegDeadline();
-                        cat = race.getReqCat();
-                    }
-                }
-            }
-        }
-        int counter = 0;
-        for(Racer r:racers){
-            //ArrayList<Race> pRaces = r.getParticipatedRaces();
-            //for(Race r:pRaces){
-            //  if (r.getId()==RaceId){
-            //      counter++;
-            //  }
-        }
-//        if(counter<participationLimit && thisRacer.getCatergory()>=cat && LocalDate.now().isBefore(date)){
-//          thisRacer.registerRace(thisRacer.getFullName(), thisRacer.getCreditCard(), thisRacer.getLicense());
-//        }
-
-    }
-    public void updateCAT(Racer racer){
-//        int podiums = racer.getNumPodiums();
-//        int category = racer.getCategory();
-//        int newCat = racer.levelUp(podiums, category);
-        //racer.setCategory(newCat);
+        return null;
     }
 
-    public ArrayList<Racer> getRacers(){
-        return racers;
+    public boolean registerForRace(Racer racer, Race race) {
+        // 1. License check
+        if (!racer.hasValidLicense()) {
+            return false;
+        }
+
+        // 2. Category check
+        if (race.getReqCat() < racer.getCategory()) {
+            return false;
+        }
+
+        // 3. Seat availability
+        if (race.isFull()) {
+            return false;
+        }
+
+        // 4. Register racer
+        race.addParticipant(racer);
+        racer.addRace(race);
+
+        return true;
     }
 }
-
