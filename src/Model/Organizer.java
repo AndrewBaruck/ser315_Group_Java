@@ -1,13 +1,17 @@
 package Model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
-public class Organizer implements User{
+public class Organizer implements User {
 
     private String username;
     private String password;
     private String fullName;
     private List<Race> races = new ArrayList<>();
+    private final Scanner sc = new Scanner(System.in);
 
     public Organizer(String username, String password) {
         this.username = username;
@@ -15,7 +19,8 @@ public class Organizer implements User{
     }
 
     public void createRace(double dist, int limit, String type, LocalDate raceDay,
-                      LocalDate deadline, boolean official, int cat, String route, int ID, String name){
+                           LocalDate deadline, boolean official, int cat, String route, int ID, String name) {
+
         races.add(new Race.Builder(dist)
                 .participationLimit(limit)
                 .type(type)
@@ -28,66 +33,37 @@ public class Organizer implements User{
                 .name(name)
                 .build()
         );
-
-    }
-    public void updateRace(Race race){
-        System.out.println("What would you like to update?");
-        System.out.println("1. Distance \n2. Limit \n 3. Type \n4. Race Day \n5. Sign up Deadline \n6. Official Status \n7. Required Category \n8. Route");
-        String choice = sc.nextLine();
-
-        case "1":
-            System.out.print("Enter the new Distance: ");
-            double newDist = sc.nextDouble();
-            race.Builder(newDist);
-        case "2":
-            System.out.print("Enter the new Limit: ");
-            int newLimit = sc.nextInt();
-            race.participationLimit(newLimit);
-        case "3":
-            System.out.print("Enter the new Type: ");
-            String newType = sc.nextLine();
-            race.type(newType);
-        case "4":
-            System.out.print("Enter the new Race Day: ");
-            String newDate = sc.nextLine();
-            //race.raceDate(newDate);
-        case "5":
-            System.out.print("Enter the new Sign up Deadline: ");
-            String newDeadline = sc.nextLine();
-            //race.regDeadline(newDeadline);
-        case "6":
-            System.out.print("Enter new status: ");
-            String newStatus = sc.nextLine();
-            race.official(official);
-        case "7":
-            System.out.print("Enter new Category: ");
-            int newCat = sc.nextInt();
-            race.reqCat(cat);
-        case "8":
-            System.out.print("Enter new Route: ");
-            String newRoute = sc.nextLine();
-            race.route(route);
-        default:
-            System.out.println("Invalid choice.");
-        
-    }
-    public void enterResults(Race race, Racer first, Racer second,  Racer third){
-        Review review = new Review( race,  first,  second,   third);
     }
 
-    public boolean logIn(){
-        String username = sc.nextLine();
-        String password = sc.nextLine();
+    /**
+     * Placeholder for race updates.
+     * With the current Race design (Builder + getters, no setters),
+     * races are effectively immutable after creation.
+     */
+    public void updateRace(Race race) {
+        System.out.println("Update race feature is not implemented in this version.");
+    }
 
-        if (this.username.equals(username) && this.password.equals(password)){
-            return true;
-        }
+    public void enterResults(Race race, Racer first, Racer second, Racer third) {
+        Review review = new Review(race, first, second, third);
+        // You can store or print the review as needed.
+    }
+
+    // These login / signup methods are not used by SystemController,
+    // but are left here for completeness.
+
+    public boolean logIn() {
+        String usernameInput = sc.nextLine();
+        String passwordInput = sc.nextLine();
+
+        return this.username.equals(usernameInput) && this.password.equals(passwordInput);
+    }
+
+    public boolean logOut() {
         return false;
     }
-    public boolean logOut(){
-        return false;
-    }
-    public boolean signUp(){
+
+    public boolean signUp() {
         System.out.println("Please enter your username: ");
         this.username = sc.nextLine();
         System.out.println("Please enter your password: ");
@@ -97,13 +73,12 @@ public class Organizer implements User{
 
         return true;
     }
-    public String getPassword(){
+
+    public String getPassword() {
         return this.password;
     }
-    public String getUsername(){
+
+    public String getUsername() {
         return this.username;
     }
 }
-
-
-

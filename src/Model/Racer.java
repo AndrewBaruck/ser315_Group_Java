@@ -116,8 +116,11 @@ public class Racer implements User{
     }
 
     public void addRace(Race race) {
-        registeredRaces.add(race);
+        if (!registeredRaces.contains(race)) {
+            registeredRaces.add(race);
+        }
     }
+
 
 
 }

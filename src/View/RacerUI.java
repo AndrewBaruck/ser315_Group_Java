@@ -125,20 +125,23 @@ public class RacerUI implements RoleUI {
      *        Index 0 - user's name
      *        Index 1 - Payment information
      */
-    public String[] displayLicenceRegistration(){
+    public String[] displayLicenceRegistration() {
 
         String[] licenceRegistration = new String[2];
 
-        System.out.println("===============================" +
-                "Licence Registration Page\n" +
-                "===============================\n" +
-                "Enter Name: \n" +
-                "Enter Payment: \n"
-        );
+        System.out.println("================================");
+        System.out.println("Licence Registration Page");
+        System.out.println("================================");
+
+        System.out.println("Enter Name: ");
         licenceRegistration[0] = input.nextLine();
+
+        System.out.println("Enter Payment: ");
         licenceRegistration[1] = input.nextLine();
+
         return licenceRegistration;
     }
+
 
     /**
      * Displays an error message about payment information being invalid. Also, prompts the user to try entering their
