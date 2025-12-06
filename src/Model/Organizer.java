@@ -14,8 +14,19 @@ public class Organizer implements User{
     }
 
     public void createRace(double dist, int limit, String type, LocalDate raceDay,
-                      LocalDate deadline, boolean official, int cat, String route){
-        
+                      LocalDate deadline, boolean official, int cat, String route, int ID, String name){
+        new Race.Builder(dist)
+                .participationLimit(limit)
+                .type(type)
+                .raceDate(raceDay)
+                .regDeadline(deadline)
+                .official(official)
+                .reqCat(cat)
+                .route(route)
+                .ID(ID)
+                .name(name)
+                .build()
+        );
 
     }
     public void updateRace(){
@@ -84,4 +95,5 @@ public class Organizer implements User{
         return this.username;
     }
 }
+
 
