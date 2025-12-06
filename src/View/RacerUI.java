@@ -315,7 +315,7 @@ public class RacerUI implements RoleUI {
             //Catch if user input is a non integer value
             catch (InputMismatchException e ) {
                 System.out.println("Error: Invalid input. Please enter 1 or 2.");
-                input.nextLine(); //Clear buffer
+                input.nextLine();
             }
         }
     }
@@ -353,8 +353,6 @@ public class RacerUI implements RoleUI {
         }
 
         // 3. Check category level
-        // Assumption: category 5 is beginner, 1 is strongest.
-        // If racer's category number is greater than required, they are under-qualified.
         if (racer.getCategory() > selected.getReqCat()) {
             displayInvalidCatLevel();
             return;
@@ -368,10 +366,13 @@ public class RacerUI implements RoleUI {
 
         // 5. Register racer
         selected.addParticipant(racer);
-        selected.addCurrParticipants();   // uses the currParticipants field your teammate added
-        racer.addRace(selected);          // make sure Racer has this method
+        selected.addCurrParticipants();
+        racer.addRace(selected);
 
         displaySuccessfulRaceRegistration();
+        System.out.println("You are now registered for: "
+                + selected.getName() + " on " + selected.getRaceDate());
+
     }
 
     private void handleManageRaces(Racer racer) {
@@ -380,7 +381,7 @@ public class RacerUI implements RoleUI {
         List<Race> registered = racer.getRegisteredRaces();
 
         if (registered.isEmpty()) {
-            System.out.println("You are not registered for any races.");
+            System.out.println("You are not registered for any races yet.");
             return;
         }
 
