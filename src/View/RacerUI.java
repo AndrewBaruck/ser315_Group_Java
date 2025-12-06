@@ -206,7 +206,7 @@ public class RacerUI implements RoleUI {
      */
     public int displayInvalidLicense(){
         System.out.println(
-                "Error: You don’t have a valid racer license to register for an official race. \n" +
+                "Error: You dont have a valid racer license to register for an official race. \n" +
                         "Choose a option from the following list\n" +
                         "   1.) Register for licence \n" +
                         "   2.) Go back\n"
