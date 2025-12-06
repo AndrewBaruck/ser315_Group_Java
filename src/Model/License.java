@@ -10,6 +10,17 @@ public class License {
     private LocalDate expirationDate;
     private CreditCard creditCard;
     private String racerName;
+    private String payment;
+
+    public License(String racerName, String payment) {
+        this.racerName = racerName;
+        this.payment = payment;
+    }
+
+    public License() {
+        // default license used by Admin or other system tasks
+    }
+
 
     public void createLicence(String name, CreditCard card){
         this.racerName = name;

@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -16,6 +17,7 @@ public class Racer implements User{
     private License license;
     private CreditCard creditCard;
     private ArrayList<Race> participatedRaces;
+    private List<Race> registeredRaces = new ArrayList<>();
 
     private Map<Race, Integer> racePositions;
 
@@ -93,8 +95,30 @@ public class Racer implements User{
         this.password = sc.nextLine();
         System.out.println("Please enter your full name: ");
         this.fullName = sc.nextLine();
-        
+
         return true;
     }
+
+    public boolean hasValidLicense() {
+        return this.license != null;
+    }
+
+    public void registerLicense(String name, String payment) {
+        this.license = new License(name, payment);
+    }
+
+    public List<Race> getAvailableRaces() {
+        return Race.getDummyRaces();
+    }
+
+    public List<Race> getRegisteredRaces() {
+        return registeredRaces;
+    }
+
+    public void addRace(Race race) {
+        registeredRaces.add(race);
+    }
+
+
 }
 

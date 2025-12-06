@@ -1,6 +1,8 @@
 package Model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Race {
 
@@ -15,6 +17,8 @@ public class Race {
     private int ID;
     private String name;
     private int currParticipants;
+    private List<Racer> participants = new ArrayList<>();
+
 
     public static class Builder{
         private final double distance;
@@ -85,6 +89,60 @@ public class Race {
         this.ID = builder.ID;
         this.name = builder.name;
     }
+
+    public static List<Race> getDummyRaces() {
+        List<Race> races = new ArrayList<>();
+
+        races.add(new Race.Builder(25.0)
+                .participationLimit(20)
+                .type("Road Race")
+                .raceDate(LocalDate.of(2025, 12, 10))
+                .regDeadline(LocalDate.of(2025, 12, 1))
+                .official(true)
+                .reqCat(5)
+                .route("Route A")
+                .ID(1)
+                .name("Desert Classic Road Race")
+                .build()
+        );
+
+        races.add(new Race.Builder(12.0)
+                .participationLimit(15)
+                .type("Criterium")
+                .raceDate(LocalDate.of(2025, 12, 15))
+                .regDeadline(LocalDate.of(2025, 12, 5))
+                .official(true)
+                .reqCat(4)
+                .route("Route B")
+                .ID(2)
+                .name("Downtown Criterium")
+                .build()
+        );
+
+        races.add(new Race.Builder(40.0)
+                .participationLimit(30)
+                .type("Gravel")
+                .raceDate(LocalDate.of(2025, 12, 20))
+                .regDeadline(LocalDate.of(2025, 12, 10))
+                .official(false)
+                .reqCat(5)
+                .route("Route C")
+                .ID(3)
+                .name("Canyon Gravel Ride")
+                .build()
+        );
+
+        return races;
+    }
+
+    public boolean isFull() {
+        return participants.size() >= participationLimit;
+    }
+
+    public void addParticipant(Racer racer) {
+        participants.add(racer);
+    }
+
 
     public double getDistance(){
         return this.distance;

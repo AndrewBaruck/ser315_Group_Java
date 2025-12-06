@@ -15,6 +15,39 @@ public class RacerUI implements RoleUI {
 
 
     ///// Login methods //////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Strategy method for a logged-in Racer.
+     * This is what SystemController will call for Racer users.
+     */
+    @Override
+    public void showRoleMenu(User user) {
+        Racer racer = (Racer) user;
+
+        while (true) {
+            System.out.println("===== Racer Menu =====");
+            System.out.println("1) Register For Race");
+            System.out.println("2) Manage Current Races");
+            System.out.println("3) Logout");
+
+            int choice = readMenuChoice(1, 3);
+
+            switch (choice) {
+                case 1:
+                    handleRaceRegistrationFlow(racer);
+                    break;
+
+                case 2:
+                    handleManageRaces(racer);
+                    break;
+
+                case 3:
+                    System.out.println("Logging out...");
+                    return;
+            }
+        }
+    }
+
     /**
      * Displays welcome race portal banner. Also prompts user if they want to login to their account or sign up for an account.
      *
@@ -138,31 +171,6 @@ public class RacerUI implements RoleUI {
         System.out.println("Processing race registration...");
     }
 
-    /**
-     * Strategy method for a logged-in Racer.
-     * This is what SystemController will call for Racer users.
-     */
-    @Override
-    public void showRoleMenu(User user) {
-        Scanner sc = new Scanner(System.in);
-        Racer racer = (Racer) user;
-
-        while (true) {
-            System.out.println("===== Racer Menu =====");
-            System.out.println("1) Register For Race");
-            System.out.println("2) Manage Current Races");
-            System.out.println("3) Logout");
-
-            int choice = sc.nextInt();
-            sc.nextLine();
-
-            if (choice == 3) {
-                System.out.println("Logging out...");
-                return; // goes back to start() after login section
-            }
-        }
-    }
-
     ////////// End of registration ///////////////////////////////////////////////////////////////////////////////////
 
 
@@ -198,7 +206,7 @@ public class RacerUI implements RoleUI {
      */
     public int displayInvalidLicense(){
         System.out.println(
-                "Error: You don’t have a valid driver license to register for an official race. \n" +
+                "Error: You don’t have a valid racer license to register for an official race. \n" +
                         "Choose a option from the following list\n" +
                         "   1.) Register for licence \n" +
                         "   2.) Go back\n"
@@ -311,5 +319,79 @@ public class RacerUI implements RoleUI {
             }
         }
     }
+
+    private void handleRaceRegistrationFlow(Racer racer) {
+
+        // 1. Ask controller for all races
+        List<Race> races = racer.getAvailableRaces();
+
+        int raceId = displayRacesAndGetSelection(races);
+        Race selected = races.get(raceId - 1);
+
+        // 2. Check license
+        if (!racer.hasValidLicense()) {
+            int choice = displayInvalidLicense();
+
+            if (choice == 1) {
+                // Register for license
+                String[] data = displayLicenceRegistration();
+                racer.registerLicense(data[0], data[1]);
+                displaySucessfulRegistration();
+            } else {
+                return;
+            }
+        }
+
+        // 3. Check category level
+        if (selected.getReqCat() < racer.getCategory()) {
+            displayInvalidCatLevel();
+            return;
+        }
+
+        // 4. Check participation limit
+        if (selected.isFull()) {
+            displayErrorMaxSeats();
+            return;
+        }
+
+        // 5. Register racer
+        selected.addParticipant(racer);
+        displaySuccessfulRaceRegistration();
+    }
+
+    private void handleManageRaces(Racer racer) {
+        System.out.println("===== Manage Current Races =====");
+
+        List<Race> registered = racer.getRegisteredRaces();
+
+        if (registered.isEmpty()) {
+            System.out.println("You are not registered for any races.");
+            return;
+        }
+
+        for (Race r : registered) {
+            System.out.println("- " + r.getType() + " on " + r.getRaceDate());
+        }
+
+        System.out.println("Feature not fully implemented in this deliverable.");
+    }
+
+    private int readMenuChoice(int min, int max) {
+        while (true) {
+            try {
+                int choice = input.nextInt();
+                input.nextLine();
+
+                if (choice >= min && choice <= max)
+                    return choice;
+
+                System.out.println("Invalid choice. Try again.");
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Enter a number.");
+                input.nextLine();
+            }
+        }
+    }
+
     //////// End of helper methods ////////////////////////////////////////////////////////////////////////////////////////////
 }
