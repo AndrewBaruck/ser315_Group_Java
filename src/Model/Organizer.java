@@ -8,6 +8,11 @@ public class Organizer implements User{
     private String password;
     private String fullName;
 
+    public Organizer(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public void createRace(double dist, int limit, String type, LocalDate raceDay,
                       LocalDate deadline, boolean official, int cat, String route){
 
@@ -20,10 +25,10 @@ public class Organizer implements User{
     }
 
     public String getPassword(){
-        return "organizer";
+        return password;
     }
     public String getUsername(){
-        return "organizer";
+        return username;
     }
     public boolean logIn(){
         return false;

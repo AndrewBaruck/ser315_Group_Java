@@ -19,9 +19,10 @@ public class Racer implements User{
 
     private Map<Race, Integer> racePositions;
 
-//    public Racer(String username, String password){
-//        this.username = username;
-//    }
+    public Racer(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
 
     public void setCategory(int category){
         this.category = category;
@@ -68,12 +69,9 @@ public class Racer implements User{
     public void updateLicense(License license){
         this.license = license;
     }
-    public String getPassword(){
-        return this.password;
-    }
-    public String getUsername(){
-        return this.username;
-    }
+    public String getPassword(){ return this.password; }
+    public String getUsername(){ return this.username; }
+
     public int getCategory(){ return this.category; }
     
     public boolean logIn(){

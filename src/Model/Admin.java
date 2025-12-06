@@ -9,6 +9,11 @@ public class Admin implements User{
     private String password;
     private String fullName;
 
+    public Admin(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public void upgradeCat(Racer r){
         if(r.getCategory() > 1 && r.getCategory() <= 5){
             r.setCategory(r.getCategory()-1);

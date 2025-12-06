@@ -144,25 +144,22 @@ public class RacerUI implements RoleUI {
      */
     @Override
     public void showRoleMenu(User user) {
+        Scanner sc = new Scanner(System.in);
         Racer racer = (Racer) user;
 
-        boolean running = true;
-        while (running) {
-            int choice = displayUserDashboard();
+        while (true) {
+            System.out.println("===== Racer Menu =====");
+            System.out.println("1) Register For Race");
+            System.out.println("2) Manage Current Races");
+            System.out.println("3) Logout");
 
-            switch (choice) {
-                case 1:
-                    // Register for a race
-                    System.out.println("TODO: hook up race registration here.");
-                    break;
-                case 2:
-                    // Manage current registered race
-                    System.out.println("TODO: hook up manage registered race here.");
-                    break;
-                default:
-                    System.out.println("Invalid choice.");
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            if (choice == 3) {
+                System.out.println("Logging out...");
+                return; // goes back to start() after login section
             }
-            running = false;
         }
     }
 
